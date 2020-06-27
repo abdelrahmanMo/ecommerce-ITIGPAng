@@ -24,9 +24,21 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/font-awesome/css/font-awesome.css",
+              "./node_modules/slick-carousel/slick/slick-theme.scss",
+              "./node_modules/slick-carousel/slick/slick.css",
+              "./node_modules/summernote/dist/summernote.min.css",
+              "./node_modules/summernote/dist/summernote-bs4.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/slick-carousel/slick/slick.min.js",
+              "./node_modules/summernote/dist/summernote.min.js",
+              "./node_modules/summernote/dist/summernote-bs4.js",
+              "src/slide.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -119,6 +131,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "ecommerce"
+    }
+  },
+  "defaultProject": "ecommerce",
+  "cli": {
+    "analytics": "355640ed-6c6b-479f-992e-85a41ea8e0c3"
+  }
 }
