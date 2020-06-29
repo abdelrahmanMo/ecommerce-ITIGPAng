@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { LoginService } from './login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,16 +16,21 @@ export class LoginComponent implements OnInit {
   });
   user: any;
   id: number;
+  dataValid: boolean;
   
-  constructor(private loginService: LoginService) { 
+  constructor(private loginService: LoginService, private router: Router) { 
     this.user = {
       username: "",
       password: "",
     }
+    this.dataValid = false;
     this.id = 0;
   }
 
   ngOnInit(): void {
+    if(localStorage.getItem('id')){
+      this.router.navigate(["/products"]);
+    } 
   }
 
   login() {
@@ -32,15 +38,20 @@ export class LoginComponent implements OnInit {
     this.user.password = this.loginForm.controls.form_password.value;
     this.loginService.loginUser(this.user).subscribe(
       response => {
-        this.loginService.userToken = response
-        alert(this.user.username + "Logged Successfully")
+        this.dataValid = false;
+        this.loginService.userToken = response;
+        localStorage.setItem("token", this.loginService.userToken['token']);
+        localStorage.setItem("id", this.loginService.userToken['id']);
+        this.router.navigate(["/products"]);
       },
-      error => console.log('error', error)
+      error => {
+        this.dataValid = true;
+      }
     );
   }
 
-  // getUserData(){
-  //   this.loginService.getUserData();
-  // }
+  getUserData(){
+    this.loginService.getUserData();
+  }
 
 }
