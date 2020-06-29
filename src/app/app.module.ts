@@ -18,7 +18,8 @@ import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
 import { AddProductComponent } from './products/add-product/add-product.component';
 import { ItemDetailsComponent } from './cart/item-list/item-details/item-details.component';
-
+import {FormsModule, ReactiveFormsModule} from '@angular/forms'
+import {HttpClientModule} from '@angular/common/http'
 
 @NgModule({
   declarations: [
@@ -43,8 +44,10 @@ import { ItemDetailsComponent } from './cart/item-list/item-details/item-details
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FontAwesomeModule
-
+    FontAwesomeModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
