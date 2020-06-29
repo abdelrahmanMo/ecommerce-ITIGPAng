@@ -1,0 +1,83 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Product edit</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="#">Home</a>
+            </li>
+            <li>
+                <a>E-commerce</a>
+            </li>
+            <li class="active">
+                <strong>Product Add</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+
+<div class="wrapper wrapper-content animated fadeInRight ecommerce">
+<div class="row">
+<div class="col-lg-10">
+        <div *ngIf="!submittedProduct">
+            <fieldset class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Name:</label>
+                    <div class="col-sm-10"><input type="text" class="form-control" [(ngModel)]="productInterface.name" placeholder="Product name"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Description:</label>
+                    <div class="col-sm-10"> <textarea class="form-control" rows="3" [(ngModel)]="productInterface.desc" placeholder="Enter Product description here..." >
+                        </textarea></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Quantity:</label>
+                    <div class="col-sm-10"><input name="quantity" class="form-control" [(ngModel)]="productInterface.quantity" type="number" placeholder="Enter Product Quantity"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Price:</label>
+                    <div class="col-sm-10"><input name="quantity" class="form-control" [(ngModel)]="productInterface.price" type="number" placeholder="Enter Product Price"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Photo:</label>
+                    <div class="col-sm-10"><input name="photo" type="file"  (change)="onImgChanged($event)" required></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">In-Stock:</label>
+                    <div class="col-sm-10"><input type="checkbox" name="in_stock" [(ngModel)]="productInterface.in_stock" value="true"></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Supplier:</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" name="supplier"  >
+                            <option >ahmed</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Category:</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" name="category" [(ngModel)]="productInterface.category" >
+                            <option *ngFor="let item of categoryList" [ngValue]="item['id']"> {{item['name']}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button (click)="saveProduct()" class="btn btn-outline-secondary">Create</button>
+
+            </fieldset>
+        </div>
+        <div *ngIf="submittedProduct">
+            <h4>You submitted successfully!</h4>
+            <button class="btn btn-outline-secondary" (click)="newProduct()">Create New Product</button>
+        </div>
+</div>
+</div>
+</div>
+

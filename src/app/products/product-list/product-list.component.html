@@ -1,0 +1,116 @@
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>E-commerce grid</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="#">Home</a>
+            </li>
+            <li>
+                <a>E-commerce</a>
+            </li>
+            <li class="active">
+                <strong>Products grid</strong>
+            </li>
+        </ol>
+      
+    </div>
+    <div class="col-lg-2">
+        
+    </div>
+</div>
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <br>
+    <div class="col-lg-12">
+        <div class="col-lg-3">
+            <input
+                type="text"
+                class="form-control"
+                placeholder="Search by Product name .. Default -> All "
+                [(ngModel)]="productSearchName"
+            />
+        </div>
+        <div class="col-lg-2">
+            <button
+                class="btn btn-outline-secondary"
+                type="button"
+                (click)="searchProduct()"
+            >
+            Search 
+            </button>
+            <button
+                class="btn btn-outline-secondary"
+                type="button"
+                (click)="refreshPage()"
+            >
+            Reset 
+            </button>
+        </div>
+      
+        <div class="col-lg-1">
+            <label  style="font-size: x-large;font-family: 'Times New Roman', Times, serif;"><b>Filter</b></label >
+        </div>
+
+        <div class="col-lg-2">
+            <select class="form-control" (change)="setActiveCategory($event.target.value)" >
+                <option value="null">All Categories</option>
+                <option *ngFor='let item of categoryList' [value]="item.id">{{ item.name }} </option>
+            </select>
+        </div>
+        <div class="col-lg-2">
+            <select class="form-control" (change)="setActiveStock($event.target.value)">
+                <!-- <option value="null" disabled>AAA</option> -->
+                <option value="null">All Stock</option>
+                <option value="true">Available</option>
+                <option value="false">Not-Available</option>
+                <!-- <option *ngFor="let vendor of vendors" [value]="vendor.name">{{ vendor.name }} </option> -->
+            </select>
+        </div>
+        
+    </div>
+    <!-- <div class="col-lg-2">
+        
+    </div> -->
+</div>
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-md-3" *ngFor="let item of productList ">
+            <div class="ibox">
+                <div class="ibox-content product-box">
+
+                    <!-- <div class="product-imitation"> -->
+                        <img src="{{ item['photo'] }}" width="245" height="250" >
+                    <!-- </div> -->
+                    <div class="product-desc">
+                        <span class="product-price">
+                            ${{ item['price'] }}
+                        </span>
+                        <small class="text-muted">{{ item['category'] }}</small>
+                        <a href="#" class="product-name">{{ item['name'] }}</a>
+
+
+
+                        <div class="small m-t-xs">
+                            {{ item['desc'] }}
+                        </div>
+                        <div class="m-t text-righ">
+
+                            <a routerLink="/product/{{ item['id'] }}" class="btn btn-xs btn-outline btn-primary">Details <i class="fa fa-long-arrow-right"></i> </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+    </div>
+
+
+</div>
+
+
+
+
