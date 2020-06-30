@@ -12,12 +12,37 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a class="page-scroll" href="#page-top">Home</a></li>
-                    <li><a class="page-scroll" href="#features">Features</a></li>
-                    <li><a class="page-scroll" href="#team">Team</a></li>
-                    <li><a class="page-scroll" href="#testimonials">Testimonials</a></li>
-                    <li><a class="page-scroll" href="#pricing">Pricing</a></li>
-                    <li><a class="page-scroll" href="#contact">Contact</a></li>
+                    <li><a class="page-scroll btn btn-lg" routerLink="/products">
+                        Products
+                        <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                        </a>
+                    </li>
+                    <li><a class="page-scroll btn btn-lg" href="">
+                        My Products
+                        <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+                        </a>
+                    </li>
+                    <li><a class="page-scroll btn btn-lg" href="">
+                        Add Product
+                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                        </a>
+                    </li>
+                    <li><a class="page-scroll btn btn-lg" href="">
+                        Cart
+                        <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+                        </a>
+                    </li>
+                    
+                    <li><a class="page-scroll btn btn-lg" routerLink="/profile">
+                        Profile
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                        </a>
+                    </li>
+                    <li><a (click)="logout()" class="page-scroll btn btn-lg" routerLink="/login">
+                        Logout
+                        <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
