@@ -1,0 +1,77 @@
+<div class="container emp-profile">
+    <div class="row">
+        <div class="col-md-4">
+                <div class="profile-img">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt=""/>
+                    <div class="file btn btn-lg btn-primary">
+                        Change Photo
+                        <input type="file" name="file" class="img_input"/>
+                    </div>
+                </div>
+            </div>
+        <div class="col-md-6">
+            <div class="profile-head">
+                <h1>
+                    {{ fullname }} 
+                </h1>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Username</label>
+                </div>
+                <div class="col-md-6">
+                    <p>{{ current_user['user']['username'] }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Firstname</label>
+                </div>
+                <div class="col-md-6">
+                    <p>{{ current_user['user']['first_name'] }}</p>
+                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Lastname</label>
+                </div>
+                <div class="col-md-6">
+                    <p>{{ current_user['user']['last_name'] }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Email</label>
+                </div>
+                <div class="col-md-6">
+                    <p>{{ current_user['user']['email'] }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Address</label>
+                </div>
+                <div class="col-md-6">
+                    <p>{{ current_user['address'] }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Phone</label>
+                </div>
+                <div class="col-md-6">
+                    <p>{{ current_user['phone'] }}</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

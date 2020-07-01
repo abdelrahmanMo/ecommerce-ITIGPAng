@@ -1,0 +1,41 @@
+    <div class="middle-box text-center loginscreen   animated fadeInDown">
+        <div>
+            <div>
+
+                <h1 class="logo-name">IN+</h1>
+
+            </div>
+            <h3>Register to IN+</h3>
+            <p>Create account to see it in action.</p>
+            <form class="m-t" [formGroup]="registerForm" (ngSubmit)="registerUser()">
+                <div class="form-group">
+                    <input type="text" formControlName="form_first_name" placeholder="First Name">
+                </div>
+                <div class="form-group">
+                    <input type="text" formControlName="form_last_name" placeholder="Last Name">
+                </div>
+                <div class="form-group">
+                    <input type="text" formControlName="form_username" placeholder="Username">
+                </div>
+                <div class="form-group">
+                    <input type="email" formControlName="form_email" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <input type="password" formControlName="form_password" placeholder="Password" >
+                </div>
+                <div class="form-group">
+                    <input type="text" formControlName="form_address" placeholder="Address" >
+                </div>
+                <div class="form-group">
+                    <input type="text" formControlName="form_phone" placeholder="Phone">
+                </div>
+                <button class="btn btn-primary block full-width m-b" [disabled]="registerForm.invalid">Register</button>
+                <p class="text-muted text-center"><small>Already have an account?</small></p>
+                <button class="btn btn-sm btn-white btn-block" routerLink="/login">Login</button>
+            </form> 
+        </div>
+        <p>
+
+        </p>
+    </div>
+
