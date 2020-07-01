@@ -1,30 +1,20 @@
-<<<<<<< HEAD
-import { Component, OnInit } from '@angular/core';
-=======
-
 import { Component, OnInit , OnDestroy } from '@angular/core';
 import { BackendApiService } from '../../services/backend-api/backend-api.service' ;
+import { ProfileService } from '../../profile/profile.service' ;  // new
 import { Subscription , BehaviorSubject } from 'rxjs';
 import { ActivatedRoute, Router } from "@angular/router";
->>>>>>> f3228a1cfed5d7139ba39c97eaa6262068a94e66
+
+
 
 @Component({
-  selector: 'app-product-list',
-  templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css']
+  selector: 'app-my-product',
+  templateUrl: './my-product.component.html',
+  styleUrls: ['./my-product.component.css']
 })
-<<<<<<< HEAD
-export class ProductListComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-=======
-export class ProductListComponent implements OnInit , OnDestroy{
+export class MyProductComponent implements OnInit , OnDestroy {
 // vars
 productList : any =[];
-unsubscribeProduct : Subscription ;
+// unsubscribeProduct : Subscription ;
 productSearchName = '';
 
 categoryList : any =[];
@@ -32,50 +22,80 @@ unsubscribeCategory : Subscription ;
 
 cateId : number = null ;
 currentStock :boolean = null;
+userId : number = null ;
 
-
+ //new
+ current_user: any;
  
+ fullname: string;
+ // new 
 
-constructor(public backendApi : BackendApiService , private  route: ActivatedRoute,
-private  router: Router) { }
+ constructor(public backendApi : BackendApiService ,private profileService: ProfileService, private  route: ActivatedRoute,
+  private  router: Router) { } //new
 
 
 ngOnInit(): void {
+  if(!localStorage.getItem('id')){
+    this.router.navigate(["/login"]);
+  }    
+  this.profileService.getCurrentUser().subscribe(
+    response => {
+      this.current_user = response;
+      this.fullname = this.current_user['user']['first_name'] + " " + this.current_user['user']['last_name']
+      this.userId = parseInt(this.current_user.id, 10) ;  // new
+      this.refreshProductList();
+      console.log(this.userId)
+    }
+  )
   // list products
-  this.unsubscribeProduct = this.backendApi.getAllProduct().subscribe((data:[])=>{
-    this.productList = data ;
-    console.log(data)
-    console.log(this.productList)
-  })
+  
+  // this.unsubscribeProduct = this.backendApi.findByProductSupplier(this.userId).subscribe((data:[])=>{
+  //   this.productList = data ;
+  //   this.refreshProductList();
+  //   console.log(data)
+  //   console.log(this.productList)
+  // })
+  
   // list categories
   this.unsubscribeCategory = this.backendApi.getAllCategory().subscribe((data:[])=>{
     this.categoryList = data ;
     console.log(data)
     console.log(this.categoryList)
   })
+
 }
 
 ngOnDestroy(): void {
-  this.unsubscribeProduct.unsubscribe() ;
+  // this.unsubscribeProduct.unsubscribe() ;
   this.unsubscribeCategory.unsubscribe() ;
 }
 
 refreshProductList() {
-  this.backendApi.getAllProduct()
-  .subscribe(
-    data => {
-      this.productList = data;
-      console.log(data);
-      console.log(this.productList);
-    },
-    error => {
-      console.log(error);
-    });
+  if (this.userId === null){
+    // debugger ;
+    // this.refreshProductList();
+  }
+  else{
+    this.backendApi.findByProductSupplier(this.userId,'',null,null)
+     .subscribe(
+      data => {
+        this.productList = data;
+        console.log(data);
+        console.log(this.productList);
+      },
+      error => {
+        console.log(error);
+        console.log(this.current_user.id)
+        console.log(this.userId)
+        
+      });
+  }
+  
    this.productSearchName = '';
 }
 
 searchProduct() {
-  this.backendApi.findByProduct(this.productSearchName,this.currentStock,this.cateId)
+  this.backendApi.findByProductSupplier(this.userId,this.productSearchName,this.currentStock,this.cateId)
   .subscribe(
     data => {
       this.productList = data;
@@ -88,7 +108,7 @@ searchProduct() {
 } 
 
 setActiveCategory(cateId) {
-  
+  this.productSearchName = '';
   if(cateId !== "null"){
     console.log("true")
     console.log(cateId)
@@ -112,7 +132,7 @@ setActiveCategory(cateId) {
     }
   }
   else{
-    this.backendApi.findByProductCategory(this.cateId , this.currentStock)
+    this.backendApi.findByProductSupplier(this.userId,this.productSearchName,this.currentStock,this.cateId )
     .subscribe(
       data => {
         this.productList = data;
@@ -127,7 +147,7 @@ setActiveCategory(cateId) {
 }
 
 setActiveStock(availablity) {
-  
+  this.productSearchName = '';
   this.currentStock =availablity ;
   if (this.currentStock === null){
     this.productSearchName = '';
@@ -139,7 +159,7 @@ setActiveStock(availablity) {
     }
   }
   else{
-    this.backendApi.findByProductStock(availablity , this.cateId)
+    this.backendApi.findByProductSupplier(this.userId,this.productSearchName, availablity , this.cateId)
     .subscribe(
       data => {
         this.productList = data;
@@ -155,9 +175,8 @@ setActiveStock(availablity) {
 refreshPage(){
   // this.router.navigate(['/productList']);
   this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-    this.router.navigate(['/products']);
+    this.router.navigate(['/myProduct']);
   }); 
 }
->>>>>>> f3228a1cfed5d7139ba39c97eaa6262068a94e66
 
 }
