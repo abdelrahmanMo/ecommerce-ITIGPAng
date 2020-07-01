@@ -9,7 +9,8 @@ export class BackendApiService {
 
   //Urls
   catetoryUrl = "http://127.0.0.1:8000/Category/apis/" ;
-  productUrl = "http://127.0.0.1:8000/Product/apis/"
+  productUrl = "http://127.0.0.1:8000/Product/apis/" ;
+  productImgsUrl = "http://127.0.0.1:8000/ProductImgs/apis/" ;
   constructor(private apiHttp: HttpClient) { }
 
 
@@ -105,5 +106,13 @@ export class BackendApiService {
       // const cateId = category.id ;
       return this.apiHttp.get(`${this.productUrl}?in_stock=${stock}&category=${cateId}`);
     }
+  }
+
+  // product-Imgs methods
+  getAllProductsImgs() {
+    return this.apiHttp.get(this.productImgsUrl);
+  }
+  findByProductImgs(proId) {
+    return this.apiHttp.get(`${this.productImgsUrl}?product=${proId}`);
   }
 }

@@ -35,6 +35,9 @@
                                 <!-- <div> -->
                                     <!-- <div class="image-imitation">  -->
                                         <img src="{{productInterface.photo}}" width="400" height="300">
+                                       
+                                        <img *ngFor="let item of imgList" src="{{item.photos}}" width="400" height="300">
+                                        <!-- </div>  -->
                                     <!-- </div> -->
                                 <!-- </div> -->
                                 <!-- <div>
@@ -155,8 +158,8 @@
 
         <!-- <div class="form-group">
         <label>Created Date</label>
-            <input name="created_date" class="form-control" type="datetime-local" [(ngModel)]="productInterface.created_date" value="">
-        </div> -->
+            <input name="created_date" class="form-control" type="text" [(ngModel)]="imgList[0].id" value="">
+        </div>  -->
 
         <div class="form-group">
         <label>In Stock</label>

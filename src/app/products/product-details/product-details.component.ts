@@ -19,6 +19,8 @@ export class ProductDetailsComponent implements OnInit {
   unsubscribeCategory : Subscription ;
   categoryList : any =[];
 
+  imgList : any =[] ; 
+
   constructor(public backendApi : BackendApiService , private  route: ActivatedRoute,
     private  router: Router) { }
 
@@ -50,6 +52,19 @@ export class ProductDetailsComponent implements OnInit {
           console.log(this.productInterface);
           console.log(error);
         });
+    this.backendApi.findByProductImgs(id)
+      .subscribe(
+        data => {
+          this.imgList = data;
+          console.log(data);
+          // console.log(data[0].photos)
+          // console.log(this.imgList[0].id)
+        },
+        error => {
+          console.log(error);
+        });
+    // this.imgList = [{m:'m'}]
+    console.log(this.imgList)
   }
 
   deleteProduct() {
