@@ -1,5 +1,6 @@
 import { Component, OnInit , OnDestroy } from '@angular/core';
 import { BackendApiService } from '../../services/backend-api/backend-api.service' ;
+import { ProfileService } from '../../profile/profile.service' ;  // new
 import { Subscription , BehaviorSubject } from 'rxjs';
 import { ActivatedRoute, Router } from "@angular/router";
 
@@ -21,10 +22,26 @@ export class ProductDetailsComponent implements OnInit , OnDestroy {
 
   imgList : any =[] ; 
 
-  constructor(public backendApi : BackendApiService , private  route: ActivatedRoute,
+  //new
+  current_user: any;
+  fullname: string;
+  // new 
+
+  constructor(public backendApi : BackendApiService ,private profileService: ProfileService, private  route: ActivatedRoute,
     private  router: Router) { }
 
   ngOnInit(): void {
+    if(!localStorage.getItem('id')){
+      this.router.navigate(["/login"]);
+    }    
+    this.profileService.getCurrentUser().subscribe(
+      response => {
+        this.current_user = response;
+        this.fullname = this.current_user['user']['first_name'] + " " + this.current_user['user']['last_name']
+        console.log(this.current_user)   // new
+      }
+    )
+
     this.unsubscribeProduct = this.route.params.subscribe(data => { this.productId = parseInt(data['id'], 10); 
         console.log(data['id'])
       });
@@ -88,7 +105,7 @@ export class ProductDetailsComponent implements OnInit , OnDestroy {
   }
 
   updateProduct() { 
-    this.productInterface.supplier = 1 ;
+    this.productInterface.supplier = this.current_user.id ;
     const fd = new FormData ;
 
       if (this.updatedImg === true){fd.append('photo', this.productInterface.photo,this.productInterface.photo.name)
@@ -115,6 +132,12 @@ export class ProductDetailsComponent implements OnInit , OnDestroy {
   }
 
   editProduct(){
-    this.submittedProduct = true ;
+    if (this.current_user.id === this.productInterface.supplier){
+      this.submittedProduct = true ;
+    }
+    else{
+      alert(this.fullname + "has No-Permition to Edit this Product")
+    }
+    
   }
 }

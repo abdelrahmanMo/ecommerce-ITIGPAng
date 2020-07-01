@@ -1,6 +1,7 @@
 
 import { Component, OnInit , OnDestroy } from '@angular/core';
 import { BackendApiService } from '../../services/backend-api/backend-api.service' ;
+import { ProfileService } from '../../profile/profile.service' ;  // new
 import { Subscription , BehaviorSubject } from 'rxjs';
 import { ActivatedRoute, Router } from "@angular/router";
 
@@ -27,16 +28,31 @@ export class AddProductComponent implements OnInit ,OnDestroy {
    };
   submittedProduct = false;
 
-  constructor(public backendApi : BackendApiService , private  route: ActivatedRoute,
-    private  router: Router) { }
+  //new
+  current_user: any;
+  fullname: string;
+  // new 
+  constructor(public backendApi : BackendApiService ,private profileService: ProfileService, private  route: ActivatedRoute,
+    private  router: Router) { } //new
 
   ngOnInit(): void {
+    if(!localStorage.getItem('id')){
+      this.router.navigate(["/login"]);
+    }    
+    this.profileService.getCurrentUser().subscribe(
+      response => {
+        this.current_user = response;
+        this.fullname = this.current_user['user']['first_name'] + " " + this.current_user['user']['last_name']
+        console.log(this.current_user)   // new
+      }
+    )
     // list categories
     this.unsubscribeCategory = this.backendApi.getAllCategory().subscribe((data:[])=>{
       this.categoryList = data ;
       console.log(data)
       console.log(this.categoryList)
       })
+    
 }
 
 ngOnDestroy(): void {
@@ -61,7 +77,7 @@ ngOnDestroy(): void {
       //   supplier : 1,
       //   category : this.productInterface.category
       // };
-      this.productInterface.supplier = 1 ; // need to modify 
+      this.productInterface.supplier = this.current_user.id ; // need to modify 
 
       const fd = new FormData ;
       if (this.productInterface.photo !== null){fd.append('photo', this.productInterface.photo,this.productInterface.photo.name)
@@ -71,7 +87,8 @@ ngOnDestroy(): void {
       fd.append('quantity',this.productInterface.quantity)
       fd.append('price',this.productInterface.price)
       // fd.append('created_date',this.productInterface.created_date)
-      fd.append('in_stock',this.productInterface.in_stock)
+      if(this.productInterface.photo !== null){fd.append('in_stock',this.productInterface.in_stock)}
+      
       fd.append('supplier',this.productInterface.supplier)
       fd.append('category',this.productInterface.category)
      
@@ -87,6 +104,7 @@ ngOnDestroy(): void {
           },
           error => {
             console.log(error);
+            console.log(fd.get('in_stock'))
           });
     }
   

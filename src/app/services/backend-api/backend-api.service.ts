@@ -95,8 +95,33 @@ export class BackendApiService {
       return this.apiHttp.get(`${this.productUrl}?category=${cateId}&in_stock=false`);
     }
   }
-  findByProductSupplier(supplier) {
-    return this.apiHttp.get(`${this.productUrl}?supplier=${supplier}`);
+  findByProductSupplier(supplierId,name,stock,cateId) {
+    if(stock === null && cateId === null && name === '' ){
+      return this.apiHttp.get(`${this.productUrl}?supplier=${supplierId}`);
+      // return this.apiHttp.get(`${this.productUrl}?name=${name}`);
+    }
+    else if(stock === null && name === ''){
+      // const cateId = category.id ;
+      return this.apiHttp.get(`${this.productUrl}?supplier=${supplierId}&category=${cateId}`);
+      // return this.apiHttp.get(`${this.productUrl}?name=${name}&category=${cateId}`);
+    }
+    else if(cateId === null && name === ''){
+      return this.apiHttp.get(`${this.productUrl}?supplier=${supplierId}&in_stock=${stock}`);
+    }
+    else{
+      // const cateId = category.id ;
+      if(cateId === null ){
+        return this.apiHttp.get(`${this.productUrl}?supplier=${supplierId}&name=${name}&in_stock=${stock}`);
+      }
+      else if(stock === null){
+        return this.apiHttp.get(`${this.productUrl}?supplier=${supplierId}&name=${name}&category=${cateId}`);
+      }
+      else{
+        return this.apiHttp.get(`${this.productUrl}?supplier=${supplierId}&name=${name}&category=${cateId}&in_stock=${stock}`);
+      }
+      
+    }
+
   }
   findByProductStock(stock,cateId) {
     if(cateId === null){

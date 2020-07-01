@@ -17,6 +17,7 @@ import { ItemListComponent } from './cart/item-list/item-list.component';
 import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
 import { AddProductComponent } from './products/add-product/add-product.component';
+import { MyProductComponent } from './products/my-product/my-product.component';
 import { ItemDetailsComponent } from './cart/item-list/item-details/item-details.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms'
 import {HttpClientModule} from '@angular/common/http';
@@ -29,6 +30,7 @@ import { ProfileComponent } from './profile/profile.component'
     ProductListComponent,
     ProductItemComponent,
     ProductDetailsComponent,
+    MyProductComponent,
  
     HeaderComponent,
     FooterComponent,
@@ -50,6 +52,8 @@ import { ProfileComponent } from './profile/profile.component'
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule
+    
+
   ],
   providers: [],
   bootstrap: [AppComponent]
