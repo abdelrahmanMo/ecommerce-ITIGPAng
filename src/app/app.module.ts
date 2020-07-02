@@ -22,7 +22,8 @@ import { ItemDetailsComponent } from './cart/item-list/item-details/item-details
 import {FormsModule, ReactiveFormsModule} from '@angular/forms'
 import {HttpClientModule} from '@angular/common/http';
 import { ProfileComponent } from './profile/profile.component'
-
+import { CartService } from './services/backend-api/cart.service';
+import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,11 +52,13 @@ import { ProfileComponent } from './profile/profile.component'
     FontAwesomeModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
-    
+    ReactiveFormsModule,
+     ConfirmationPopoverModule.forRoot({
+      confirmButtonType: 'danger', // set defaults here
+    }),
 
   ],
-  providers: [],
+  providers: [CartService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

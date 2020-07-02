@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <svg xmlns="http://www.w3.org/2000/svg" height="480" width="640" viewBox="0 0 640 480">
   <defs>
     <clipPath id="a">
@@ -44,7 +43,6 @@
     </g>
   </g>
 </svg>
-=======
 <svg xmlns="http://www.w3.org/2000/svg" height="480" width="640" viewBox="0 0 640 480">
   <defs>
     <clipPath id="a">
@@ -90,4 +88,3 @@
     </g>
   </g>
 </svg>
->>>>>>> f3228a1cfed5d7139ba39c97eaa6262068a94e66

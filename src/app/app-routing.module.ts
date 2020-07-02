@@ -10,6 +10,8 @@ import { ProductListComponent } from './products/product-list/product-list.compo
 import { ProductDetailsComponent } from './products/product-details/product-details.component';
 import { AddProductComponent } from './products/add-product/add-product.component';
 import { MyProductComponent } from './products/my-product/my-product.component';
+import { CartComponent } from './cart/cart.component';
+import { ItemListComponent } from './cart/item-list/item-list.component';
 
 
 const routes: Routes = [
@@ -22,6 +24,9 @@ const routes: Routes = [
   {path : 'myProduct', component : MyProductComponent } ,
   {path : 'product/:id', component : ProductDetailsComponent } ,
   {path : 'addProduct', component : AddProductComponent } ,
+  {path:'cart',component:CartComponent, children:[
+  {path:'',component:ItemListComponent}
+  ]},
 
 ];
 

@@ -1,27 +1,14 @@
-<<<<<<< HEAD
-import { Component, OnInit } from '@angular/core';
-=======
 import { Component, OnInit , OnDestroy } from '@angular/core';
 import { BackendApiService } from '../../services/backend-api/backend-api.service' ;
 import { ProfileService } from '../../profile/profile.service' ;  // new
 import { Subscription , BehaviorSubject } from 'rxjs';
 import { ActivatedRoute, Router } from "@angular/router";
->>>>>>> f3228a1cfed5d7139ba39c97eaa6262068a94e66
 
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.css']
 })
-<<<<<<< HEAD
-export class ProductDetailsComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-=======
 export class ProductDetailsComponent implements OnInit , OnDestroy {
   submittedProduct : boolean = false ;
   unsubscribeProduct : Subscription ;
@@ -153,5 +140,4 @@ export class ProductDetailsComponent implements OnInit , OnDestroy {
     }
     
   }
->>>>>>> f3228a1cfed5d7139ba39c97eaa6262068a94e66
 }
