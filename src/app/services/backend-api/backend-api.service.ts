@@ -11,9 +11,13 @@ export class BackendApiService {
   catetoryUrl = "http://127.0.0.1:8000/Category/apis/" ;
   productUrl = "http://127.0.0.1:8000/Product/apis/" ;
   productImgsUrl = "http://127.0.0.1:8000/ProductImgs/apis/" ;
+  supplierUrl = 'http://127.0.0.1:8000/profile/api/loggedin/';
   constructor(private apiHttp: HttpClient) { }
 
-
+  //supplier methods
+  getOneSupplier(id) {
+    return this.apiHttp.get(`${this.supplierUrl}${id}`);
+  }
   // category methods
   getAllCategory() {
     return this.apiHttp.get(this.catetoryUrl);
@@ -89,10 +93,11 @@ export class BackendApiService {
     if(stock === null){
       return this.apiHttp.get(`${this.productUrl}?category=${cateId}`);
     }
-    else if(stock){    
-      return this.apiHttp.get(`${this.productUrl}?category=${cateId}&in_stock=true`);
-    }else{
-      return this.apiHttp.get(`${this.productUrl}?category=${cateId}&in_stock=false`);
+    // else if(stock == 'true'){    
+    //   return this.apiHttp.get(`${this.productUrl}?category=${cateId}&in_stock=true`);
+    // }
+    else{
+      return this.apiHttp.get(`${this.productUrl}?category=${cateId}&in_stock=${stock}`);
     }
   }
   findByProductSupplier(supplierId,name,stock,cateId) {
@@ -137,6 +142,24 @@ export class BackendApiService {
   getAllProductsImgs() {
     return this.apiHttp.get(this.productImgsUrl);
   }
+
+  
+  getOneProductImg(id) {
+    return this.apiHttp.get(`${this.productImgsUrl}${id}/`);
+  }
+
+  createProductImg(data) {
+    return this.apiHttp.post(this.productImgsUrl, data);
+  }
+
+  updateProductImg(id, data) {
+    return this.apiHttp.put(`${this.productImgsUrl}${id}/`, data);
+  }
+
+  deleteProductImg(id) {
+    return this.apiHttp.delete(`${this.productImgsUrl}${id}/`);
+  }
+
   findByProductImgs(proId) {
     return this.apiHttp.get(`${this.productImgsUrl}?product=${proId}`);
   }

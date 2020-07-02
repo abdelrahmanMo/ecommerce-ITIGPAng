@@ -76,7 +76,7 @@ searchProduct() {
 } 
 
 setActiveCategory(cateId) {
-  
+  console.log(this.currentStock)
   if(cateId !== "null"){
     console.log("true")
     console.log(cateId)
@@ -105,6 +105,9 @@ setActiveCategory(cateId) {
       data => {
         this.productList = data;
         console.log(data);
+        console.log(this.cateId)
+        console.log(this.currentStock)
+
       },
       error => {
         console.log(error);

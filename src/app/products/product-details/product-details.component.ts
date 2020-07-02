@@ -13,8 +13,8 @@ export class ProductDetailsComponent implements OnInit , OnDestroy {
   submittedProduct : boolean = false ;
   unsubscribeProduct : Subscription ;
   productInterface : any = {};
-  productId : number ;
-  message : string = '' ;
+  productId : any ;
+  // message : string = '' ;
   updatedImg = false ;
 
   unsubscribeCategory : Subscription ;
@@ -22,10 +22,22 @@ export class ProductDetailsComponent implements OnInit , OnDestroy {
 
   imgList : any =[] ; 
 
+  categoryInterface : any = {};
+  supplierInterface : any = {};
+  supplierName : string = null ;
+
   //new
   current_user: any;
   fullname: string;
   // new 
+
+  // new imgs
+  images  : any = [];
+  imgListView : any = [];
+  coverView :any ;
+  coverImg : any ;
+
+  // productId : any;
 
   constructor(public backendApi : BackendApiService ,private profileService: ProfileService, private  route: ActivatedRoute,
     private  router: Router) { }
@@ -63,7 +75,10 @@ export class ProductDetailsComponent implements OnInit , OnDestroy {
           this.productInterface = data;
           console.log(data);
           console.log(this.productInterface.photo);
-
+          this.coverView= this.productInterface.photo ;
+          this.coverImg= this.productInterface.photo ;
+          this.getOneCategory(this.productInterface.category)
+          this.getOneSupplier(this.productInterface.supplier)
         },
         error => {
           console.log(this.productInterface);
@@ -91,6 +106,7 @@ export class ProductDetailsComponent implements OnInit , OnDestroy {
           console.log(this.productInterface.id);
           console.log(this.productInterface);
           console.log(response);
+          alert("The Product was deleted successfully!")
           this.router.navigate(['/products']);
         },
         error => {
@@ -101,6 +117,15 @@ export class ProductDetailsComponent implements OnInit , OnDestroy {
 
   onImgChanged(event : any ){
     this.productInterface.photo = event.target.files[0] ;
+    // new
+    let reader = new FileReader();
+    reader.onload = (event:any) => {
+      console.log(event.target.result);
+      this.coverView=event.target.result; 
+    }
+    reader.readAsDataURL(event.target.files[0]);
+    // new
+    
     this.updatedImg = true ;
   }
 
@@ -123,13 +148,26 @@ export class ProductDetailsComponent implements OnInit , OnDestroy {
       .subscribe(
         response => {
           console.log(response);
-          this.message = 'The Product was updated successfully!';
+          this.newProductImgs() ;
           this.submittedProduct = false ;
+          alert('The Product was updated successfully!')
+          // this.message = 'The Product was updated successfully!';
+          this.refreshPage();
         },
         error => {
           console.log(error);
+          alert('( InValid-Input ) Please Try Again ... ')
         });
+        
+
   }
+  
+refreshPage(){
+  // this.router.navigate(['/productList']);
+  this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+    this.router.navigate(['/product/'+ this.productId]);
+  }); 
+}
 
   editProduct(){
     if (this.current_user.id === this.productInterface.supplier){
@@ -139,5 +177,100 @@ export class ProductDetailsComponent implements OnInit , OnDestroy {
       alert(this.fullname + "has No-Permition to Edit this Product")
     }
     
+  }
+
+  getOneCategory(id){
+    this.backendApi.getOneCategory(id)
+      .subscribe(
+        data => {
+          this.categoryInterface = data;
+          console.log(data);
+          console.log(this.categoryInterface.name);
+
+        },
+        error => {
+          console.log(this.categoryInterface);
+          console.log(error);
+        });
+  }
+  getOneSupplier(id){
+    this.backendApi.getOneSupplier(id)
+      .subscribe(
+        data => {
+          this.supplierInterface = data;
+          this.supplierName = this.supplierInterface['user']['first_name'] + " " + this.supplierInterface['user']['last_name']
+          console.log(data);
+          console.log(this.supplierName);
+
+        },
+        error => {
+          console.log(this.supplierInterface);
+          console.log(error);
+        });
+  }
+
+  //Product Imgs Create 
+         
+  onProductImgChange(event) {
+    this.images = [] ;
+    this.imgListView = [] ;
+    if (event.target.files && event.target.files[0]) {
+        var filesAmount = event.target.files.length;
+        for (let i = 0; i < filesAmount; i++) {
+          this.images.push(event.target.files[i])
+          let reader = new FileReader();
+ 
+          reader.onload = (event:any) => {
+            console.log(event.target.result);
+             this.imgListView.push(event.target.result); 
+          }
+          reader.readAsDataURL(event.target.files[i]);
+        }
+    }
+  }
+    
+  newProductImgs(){
+    
+    const productImgsForm = new FormData  ;
+    // this.productId = 1;
+    for (let i = 0; i < this.images.length; i++) {
+      productImgsForm.append('product', this.productId)
+      productImgsForm.append('photos',this.images[i])
+      console.log(productImgsForm);
+      this.backendApi.createProductImg(productImgsForm)
+        .subscribe(res => {
+          console.log(res);
+          console.log('Uploaded Successfully.');
+          productImgsForm.delete('product')
+          productImgsForm.delete('photos')
+          if(i === 0){
+            this.deleteProductImgs() ; console.log("true delete old"); this.refreshPage();
+          }
+        },
+        error => {
+          console.log(error);
+          productImgsForm.delete('product')
+          productImgsForm.delete('photos')
+        });
+        
+    }
+  }
+
+  deleteProductImgs() {
+    for (let i = 0; i < this.imgList.length; i++) {
+      this.backendApi.deleteProductImg(this.imgList[i].id)
+        .subscribe(
+          response => {
+            // console.log(this.productInterface.id);
+            // console.log(this.productInterface);
+            console.log(response);
+            console.log("The Product Img was deleted successfully!")
+            // this.router.navigate(['/products']);
+          },
+          error => {
+            // console.log(this.productInterface.id);
+            console.log(error);
+          });
+    }
   }
 }

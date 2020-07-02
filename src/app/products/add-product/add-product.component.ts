@@ -4,6 +4,8 @@ import { ProfileService } from '../../profile/profile.service' ;  // new
 import { Subscription , BehaviorSubject } from 'rxjs';
 import { ActivatedRoute, Router } from "@angular/router";
 
+import { FormGroup, FormControl, Validators} from '@angular/forms';
+
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
@@ -27,10 +29,26 @@ export class AddProductComponent implements OnInit ,OnDestroy {
    };
   submittedProduct = false;
 
+
   //new
   current_user: any;
   fullname: string;
   // new 
+
+
+   // new imgs
+   images  : any = [];
+   imgList : any = [];
+   coverView : any = null; 
+
+   productId : any;
+  //  productImgsForm = new FormGroup  ;
+  //  ({
+  //   product: new FormControl(2, [Validators.required]),
+  //   file: new FormControl('', [Validators.required]),
+  //   fileSource: new FormControl('', [Validators.required])
+  // });
+   // end new 
   constructor(public backendApi : BackendApiService ,private profileService: ProfileService, private  route: ActivatedRoute,
     private  router: Router) { } //new
 
@@ -61,6 +79,14 @@ ngOnDestroy(): void {
     // creating Product
     onImgChanged(event : any ){
       this.productInterface.photo = event.target.files[0] ;
+      // new
+      let reader = new FileReader();
+      reader.onload = (event:any) => {
+        console.log(event.target.result);
+        this.coverView=event.target.result; 
+      }
+      reader.readAsDataURL(event.target.files[0]);
+      // new
     }
 
     saveProduct() {
@@ -95,7 +121,9 @@ ngOnDestroy(): void {
       this.backendApi.createProduct(fd)
         .subscribe(
           response => {
-            console.log(response);
+            console.log(JSON.parse(JSON.stringify(response)).id);
+            this.productId = JSON.parse(JSON.stringify(response)).id ;
+            this.newProductImgs() ;
             this.submittedProduct = true;
             // this.router.navigate(['/api-service']);
             // this.refreshCategoryList();
@@ -103,7 +131,7 @@ ngOnDestroy(): void {
           },
           error => {
             console.log(error);
-            console.log(fd.get('in_stock'))
+            alert("( InValid-Input ) Please Try Again ... ")
           });
     }
   
@@ -120,9 +148,52 @@ ngOnDestroy(): void {
         supplier : null ,
         category : null
       };
+      this.imgList = [] ;
+      this.coverView =null ;
     } 
 
     // End Creating Product 
-
+    //Product Imgs Create 
+         
+    onProductImgChange(event) {
+      this.images = [] ;
+      this.imgList = [] ;
+      if (event.target.files && event.target.files[0]) {
+          var filesAmount = event.target.files.length;
+          for (let i = 0; i < filesAmount; i++) {
+            this.images.push(event.target.files[i])
+            var reader = new FileReader();
+   
+            reader.onload = (event:any) => {
+              console.log(event.target.result);
+               this.imgList.push(event.target.result); 
+            }
+            reader.readAsDataURL(event.target.files[i]);
+          }
+      }
+    }
+      
+    newProductImgs(){
+      const productImgsForm = new FormData  ;
+      // this.productId = 1;
+      for (let i = 0; i < this.images.length; i++) {
+        productImgsForm.append('product', this.productId)
+        productImgsForm.append('photos',this.images[i])
+        console.log(productImgsForm);
+        this.backendApi.createProductImg(productImgsForm)
+          .subscribe(res => {
+            console.log(res);
+            console.log('Uploaded Successfully.');
+            productImgsForm.delete('product')
+            productImgsForm.delete('photos')
+          },
+          error => {
+            console.log(error);
+            productImgsForm.delete('product')
+            productImgsForm.delete('photos')
+          });
+          
+      }
+    }
 
 }
