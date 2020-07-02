@@ -1,4 +1,3 @@
-
 import { Component, OnInit , OnDestroy } from '@angular/core';
 import { BackendApiService } from '../../services/backend-api/backend-api.service' ;
 import { ProfileService } from '../../profile/profile.service' ;  // new
