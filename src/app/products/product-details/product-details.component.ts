@@ -22,6 +22,10 @@ export class ProductDetailsComponent implements OnInit , OnDestroy {
 
   imgList : any =[] ; 
 
+  categoryInterface : any = {};
+  supplierInterface : any = {};
+  supplierName : string = null ;
+
   //new
   current_user: any;
   fullname: string;
@@ -63,7 +67,8 @@ export class ProductDetailsComponent implements OnInit , OnDestroy {
           this.productInterface = data;
           console.log(data);
           console.log(this.productInterface.photo);
-
+          this.getOneCategory(this.productInterface.category)
+          this.getOneSupplier(this.productInterface.supplier)
         },
         error => {
           console.log(this.productInterface);
@@ -139,5 +144,35 @@ export class ProductDetailsComponent implements OnInit , OnDestroy {
       alert(this.fullname + "has No-Permition to Edit this Product")
     }
     
+  }
+
+  getOneCategory(id){
+    this.backendApi.getOneCategory(id)
+      .subscribe(
+        data => {
+          this.categoryInterface = data;
+          console.log(data);
+          console.log(this.categoryInterface.name);
+
+        },
+        error => {
+          console.log(this.categoryInterface);
+          console.log(error);
+        });
+  }
+  getOneSupplier(id){
+    this.backendApi.getOneSupplier(id)
+      .subscribe(
+        data => {
+          this.supplierInterface = data;
+          this.supplierName = this.supplierInterface['user']['first_name'] + " " + this.supplierInterface['user']['last_name']
+          console.log(data);
+          console.log(this.supplierName);
+
+        },
+        error => {
+          console.log(this.supplierInterface);
+          console.log(error);
+        });
   }
 }

@@ -53,7 +53,7 @@
                             <h2 class="font-bold m-b-xs">
                                 {{productInterface.name}}
                             </h2>
-                            <small>Supplier : {{productInterface.supplier}}</small>
+                            <small><i class="fa fa-user"></i>  {{supplierName}}</small>
                             <hr>
                             <div>
                                 <button class="btn btn-primary pull-right">Add to cart</button>
@@ -67,18 +67,18 @@
                             </div>
                             <dl class="dl-horizontal m-t-md small">
                                 <dt>Category</dt>
-                                <dd>{{productInterface.category}}</dd>
+                                <dd>{{categoryInterface.name}}</dd>
                                 <dt>Quantity</dt>
                                 <dd>{{productInterface.quantity}}</dd>
                                 <dt>Stock Availability</dt>
-                                <dd>{{productInterface.in_stock}}</dd>
+                                <dd><i class="fa fa-times" *ngIf="!productInterface['in_stock']"> Out-Stock</i><i class="fa fa-check" *ngIf="productInterface['in_stock']"> In-Stock</i></dd>
                                 <dt>Created Date</dt>
                                 <dd>{{productInterface.created_date  | date:'medium'}}</dd>
                                </dl>
                             <div class="text-right">
                                 <div class="btn-group">
-                                    <button class="btn btn-white btn-sm"><i class="fa fa-star"></i> Add to wishlist </button>
-                                    <button class="btn btn-white btn-sm"><i class="fa fa-envelope"></i> Contact with {{productInterface.supplier}} </button>
+                                    <button class="btn btn-white btn-sm"><i class="fa fa-phone"></i> Call {{supplierInterface.phone}} </button>
+                                    <button class="btn btn-white btn-sm"><i class="fa fa-envelope"></i> Email Info {{supplierInterface['user']['email']}} </button>
                                 </div>
                             </div>
 

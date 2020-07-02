@@ -88,7 +88,7 @@
                         <span class="product-price">
                             ${{ item['price'] }}
                         </span>
-                        <small class="text-muted">{{ item['category'] }}</small>
+                        <i class="fa fa-times" *ngIf="!item['in_stock']"><small class="text-muted"> Out-Stock</small></i><i class="fa fa-check" *ngIf="item['in_stock']"><small class="text-muted"> In-Stock</small></i>
                         <a href="#" class="product-name">{{ item['name'] }}</a>
 
 
@@ -99,6 +99,7 @@
                         <div class="m-t text-righ">
 
                             <a routerLink="/product/{{ item['id'] }}" class="btn btn-xs btn-outline btn-primary">Details <i class="fa fa-long-arrow-right"></i> </a>
+                            <div style="float:right;"><i class="fa fa-clock-o"></i><small class="text-muted"> {{ item['created_date'] | date:'mediumDate' }}</small></div>
                         </div>
                     </div>
                 </div>

@@ -11,9 +11,13 @@ export class BackendApiService {
   catetoryUrl = "http://127.0.0.1:8000/Category/apis/" ;
   productUrl = "http://127.0.0.1:8000/Product/apis/" ;
   productImgsUrl = "http://127.0.0.1:8000/ProductImgs/apis/" ;
+  supplierUrl = 'http://127.0.0.1:8000/profile/api/loggedin/';
   constructor(private apiHttp: HttpClient) { }
 
-
+  //supplier methods
+  getOneSupplier(id) {
+    return this.apiHttp.get(`${this.supplierUrl}${id}`);
+  }
   // category methods
   getAllCategory() {
     return this.apiHttp.get(this.catetoryUrl);
@@ -89,7 +93,7 @@ export class BackendApiService {
     if(stock === null){
       return this.apiHttp.get(`${this.productUrl}?category=${cateId}`);
     }
-    else if(stock){    
+    else if(stock === 'true'){    
       return this.apiHttp.get(`${this.productUrl}?category=${cateId}&in_stock=true`);
     }else{
       return this.apiHttp.get(`${this.productUrl}?category=${cateId}&in_stock=false`);
