@@ -96,6 +96,7 @@ export class ProductDetailsComponent implements OnInit , OnDestroy {
           console.log(this.productInterface.id);
           console.log(this.productInterface);
           console.log(response);
+          alert("The Product was deleted successfully!")
           this.router.navigate(['/products']);
         },
         error => {
@@ -128,6 +129,7 @@ export class ProductDetailsComponent implements OnInit , OnDestroy {
       .subscribe(
         response => {
           console.log(response);
+          alert('The Product was updated successfully!')
           this.message = 'The Product was updated successfully!';
           this.submittedProduct = false ;
         },

@@ -141,6 +141,24 @@ export class BackendApiService {
   getAllProductsImgs() {
     return this.apiHttp.get(this.productImgsUrl);
   }
+
+  
+  getOneProductImg(id) {
+    return this.apiHttp.get(`${this.productImgsUrl}${id}/`);
+  }
+
+  createProductImg(data) {
+    return this.apiHttp.post(this.productImgsUrl, data);
+  }
+
+  updateProductImg(id, data) {
+    return this.apiHttp.put(`${this.productImgsUrl}${id}/`, data);
+  }
+
+  deleteProductImg(id) {
+    return this.apiHttp.delete(`${this.productImgsUrl}${id}/`);
+  }
+
   findByProductImgs(proId) {
     return this.apiHttp.get(`${this.productImgsUrl}?product=${proId}`);
   }
