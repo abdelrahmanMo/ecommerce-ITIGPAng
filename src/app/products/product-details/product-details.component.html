@@ -31,7 +31,7 @@
 
 
                             <div class="product-images">
-                                <img src="{{productInterface.photo}}" width="400" height="300" >                 
+                                <img src="{{coverImg}}" width="400" height="300" >                 
                                 <img  *ngFor="let item of imgList" src="{{item.photos}}" width="400" height="300" > 
                                 
                                     <!-- <div class="image-imitation">
@@ -95,7 +95,7 @@
                         <button class="btn btn-outline-secondary" (click)="editProduct()">
                             Edit Product
                         </button>
-                        <p>{{ message }}</p>
+                        <!-- <p>{{ message }}</p> -->
                     </div>
                     
                 </div>
@@ -116,37 +116,66 @@
 
 
 <div *ngIf="submittedProduct">
-    <p>Edit-Mode</p>
+    <fieldset class="form-horizontal">
 
 
     
         <div class="form-group">
-        <label>Name</label>
-        <input type="text" class="form-control col-md-6" [(ngModel)]="productInterface.name" required          
-            name="Product Name"
-        />
+        <label class="col-sm-2 control-label">Name:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control col-md-6" [(ngModel)]="productInterface.name" required          
+                name="Product Name"
+            />
+        </div>
         </div>
     
         <div class="form-group">
-        <label>Description</label>
-        <textarea rows="4" cols="50" [(ngModel)]="productInterface.desc" class="form-control col-md-6" >
-            Enter Category description here...</textarea>
+        <label class="col-sm-2 control-label">Description:</label>
+        <div class="col-sm-10">
+            <textarea rows="4" cols="50" [(ngModel)]="productInterface.desc" class="form-control col-md-6" >
+                Enter Category description here...</textarea>
+        </div>
         </div>
             
         <div class="form-group">
-        <label>Quantity</label>
+        <label class="col-sm-2 control-label">Quantity:</label>
+        <div class="col-sm-10">
             <input name="quantity" class="form-control" [(ngModel)]="productInterface.quantity" type="number" value="">
         </div>
-
-        <div class="form-group">
-        <label>Cover Photo</label>
-            <input name="photo" type="file"  (change)="onImgChanged($event)" required>
-            <img src="{{productInterface.photo}}" height="150" width="200px" style="margin: 3px;">
         </div>
 
         <div class="form-group">
-        <label>Price</label>
+        <label class="col-sm-2 control-label">Cover Photo:</label>
+        <div class="col-sm-10">
+            <input name="photo" type="file"  (change)="onImgChanged($event)" required>
+            <img src="{{coverView}}" height="150" width="200px" style="margin: 3px;">
+        </div>
+        </div>
+
+        <div class="form-group">
+            <label for="file" class="col-sm-2 control-label" >Details Current Photos :</label>
+            <div class="col-sm-10">
+                <input 
+                type="file" 
+                multiple="" 
+                (change)="onProductImgChange($event)">
+                <img  *ngFor="let item of imgList" src="{{item.photos}}" height="150" width="200px" style="margin: 3px;"> <br/>
+
+            </div>
+            <label for="file" class="col-sm-2 control-label" >Details New Photos :</label>
+            <div class="col-sm-10">
+            <img *ngFor='let url of imgListView'  [src]="url" height="150" width="200px" style="margin: 3px;"> <br/>
+            <!-- <div *ngIf="f.file.touched && f.file.invalid" class="alert alert-danger">
+                <div *ngIf="f.file.errors.required">File is required.</div>
+            </div> -->
+            </div>
+        </div>
+
+        <div class="form-group">
+        <label class="col-sm-2 control-label">Price:</label>
+        <div class="col-sm-10">
             <input name="price" class="form-control" type="number" [(ngModel)]="productInterface.price" value="">
+        </div>
         </div>
 
         <!-- <div class="form-group">
@@ -155,23 +184,30 @@
         </div>  -->
 
         <div class="form-group">
-        <label>In Stock</label>
+        <label class="col-sm-2 control-label">In-Stock:</label>
+        <div class="col-sm-10">
             <input type="checkbox" name="in_stock" [(ngModel)]="productInterface.in_stock" value="true">
+        </div>
         </div>
 
         <div class="form-group">
-        <label>Supplier</label>
+        <label class="col-sm-2 control-label">Supplier:</label>
+        <div class="col-sm-10">
             <select class="form-control" name="supplier"  >
-                <option >ahmed</option>
+                <option>{{fullname}}</option>
             </select>
-        </div>  
+        </div> 
+        </div> 
 
         <div class="form-group">
-        <label>Category</label>
+        <label class="col-sm-2 control-label">Category:</label>
+        <div class="col-sm-10">
             <select class="form-control" name="category" [(ngModel)]="productInterface.category" >
                 <option *ngFor="let item of categoryList" [ngValue]="item['id']"> {{item['name']}}</option>
             </select>
-        </div>  
+        </div> 
+        </div>
+
         <div class="form-group">
             <button class="btn btn-outline-secondary" (click)="deleteProduct()">
             Delete
@@ -180,8 +216,12 @@
             <button type="submit" class="btn btn-outline-secondary" (click)="updateProduct()">
             Update
             </button>
+
+            <button type="submit" class="btn btn-outline-secondary" (click)="refreshPage()">
+                Reset
+            </button>
         </div>
-        
+    </fieldset> 
     <br>    <br>   
 
 
@@ -189,3 +229,75 @@
 
 
 </div>
+
+
+<!-- 
+<fieldset class="form-horizontal">
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Name:</label>
+        <div class="col-sm-10"><input type="text" class="form-control" [(ngModel)]="productInterface.name" placeholder="Product name"></div>
+    </div>
+    
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Description:</label>
+        <div class="col-sm-10"> <textarea class="form-control" rows="3" [(ngModel)]="productInterface.desc" placeholder="Enter Product description here..." >
+            </textarea></div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Quantity:</label>
+        <div class="col-sm-10"><input name="quantity" class="form-control" [(ngModel)]="productInterface.quantity" type="number" placeholder="Enter Product Quantity"></div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Price:</label>
+        <div class="col-sm-10"><input name="quantity" class="form-control" [(ngModel)]="productInterface.price" type="number" placeholder="Enter Product Price"></div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Cover Photo :</label>
+        <div class="col-sm-10"><input name="photo" type="file"  (change)="onImgChanged($event)" required></div>
+    </div>
+
+    <div class="form-group">
+        <label for="file" class="col-sm-2 control-label" >Details Photos :</label>
+        <div class="col-sm-10">
+            <input 
+            type="file" 
+            multiple="" 
+            (change)="onProductImgChange($event)">
+        </div>
+        <img *ngFor='let url of imgList'  [src]="url" height="150" width="200px" style="margin: 3px;"> <br/>
+        
+    </div>
+    
+    
+
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">In-Stock:</label>
+        <div class="col-sm-10"><input type="checkbox" name="in_stock" [(ngModel)]="productInterface.in_stock" ></div>
+    </div>
+
+    
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Supplier:</label>
+        <div class="col-sm-10">
+            <select class="form-control" name="supplier"  >
+                <option>{{fullname}}</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Category:</label>
+        <div class="col-sm-10">
+            <select class="form-control" name="category" [(ngModel)]="productInterface.category" >
+                <option *ngFor="let item of categoryList" [ngValue]="item['id']"> {{item['name']}}</option>
+            </select>
+        </div>
+    </div>
+
+    <button (click)="saveProduct()" class="btn btn-outline-secondary">Create</button>
+
+</fieldset> -->

@@ -93,10 +93,11 @@ export class BackendApiService {
     if(stock === null){
       return this.apiHttp.get(`${this.productUrl}?category=${cateId}`);
     }
-    else if(stock === 'true'){    
-      return this.apiHttp.get(`${this.productUrl}?category=${cateId}&in_stock=true`);
-    }else{
-      return this.apiHttp.get(`${this.productUrl}?category=${cateId}&in_stock=false`);
+    // else if(stock == 'true'){    
+    //   return this.apiHttp.get(`${this.productUrl}?category=${cateId}&in_stock=true`);
+    // }
+    else{
+      return this.apiHttp.get(`${this.productUrl}?category=${cateId}&in_stock=${stock}`);
     }
   }
   findByProductSupplier(supplierId,name,stock,cateId) {

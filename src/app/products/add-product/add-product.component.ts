@@ -30,6 +30,7 @@ export class AddProductComponent implements OnInit ,OnDestroy {
    };
   submittedProduct = false;
 
+
   //new
   current_user: any;
   fullname: string;
@@ -39,6 +40,7 @@ export class AddProductComponent implements OnInit ,OnDestroy {
    // new imgs
    images  : any = [];
    imgList : any = [];
+   coverView : any = null; 
 
    productId : any;
   //  productImgsForm = new FormGroup  ;
@@ -78,6 +80,14 @@ ngOnDestroy(): void {
     // creating Product
     onImgChanged(event : any ){
       this.productInterface.photo = event.target.files[0] ;
+      // new
+      let reader = new FileReader();
+      reader.onload = (event:any) => {
+        console.log(event.target.result);
+        this.coverView=event.target.result; 
+      }
+      reader.readAsDataURL(event.target.files[0]);
+      // new
     }
 
     saveProduct() {
@@ -122,7 +132,7 @@ ngOnDestroy(): void {
           },
           error => {
             console.log(error);
-            console.log(fd.get('in_stock'))
+            alert("( InValid-Input ) Please Try Again ... ")
           });
     }
   
@@ -140,12 +150,15 @@ ngOnDestroy(): void {
         category : null
       };
       this.imgList = [] ;
+      this.coverView =null ;
     } 
 
     // End Creating Product 
     //Product Imgs Create 
          
     onProductImgChange(event) {
+      this.images = [] ;
+      this.imgList = [] ;
       if (event.target.files && event.target.files[0]) {
           var filesAmount = event.target.files.length;
           for (let i = 0; i < filesAmount; i++) {
