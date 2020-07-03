@@ -30,23 +30,10 @@
                     <div class="row">
                         <div class="col-md-5">
 
-
                             <div class="product-images">
                                 <img src="{{coverImg}}" width="400" height="300" >                 
                                 <img  *ngFor="let item of imgList" src="{{item.photos}}" width="400" height="300" > 
-                                
-                                    <!-- <div class="image-imitation">
-                                        [IMAGE 2]
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="image-imitation">
-                                        [IMAGE 3]
-                                    </div>
-                                </div> -->
-                            
-
-                            </div>
+                            </div>    
 
                         </div>
                         <div class="col-md-7">
@@ -92,7 +79,7 @@
                     <span class="pull-right">
                         Full stock - <i class="fa fa-clock-o"></i> {{productInterface.created_date  | date:'medium'}}
                     </span>
-                    <div *ngIf="!submittedProduct">
+                    <div *ngIf="!submittedProduct && current_user.id === productInterface.supplier">
                         <button class="btn btn-outline-secondary" (click)="editProduct()">
                             Edit Product
                         </button>
