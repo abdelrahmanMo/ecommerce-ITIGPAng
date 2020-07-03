@@ -27,11 +27,33 @@ export class ProductDetailsComponent implements OnInit , OnDestroy {
   imgList : any =[] ; 
 
   categoryInterface : any = {};
-  supplierInterface : any = {};
+  supplierInterface : any = {
+    "id": null,
+    "user": {
+        "id": null,
+        "first_name": "",
+        "last_name": "",
+        "username": "",
+        "email": ""
+    },
+    "address": "",
+    "phone": ""
+};  //modify
   supplierName : string = null ;
 
   //new
-  current_user: any;
+  current_user: any = {
+    "id": null,
+    "user": {
+        "id": null,
+        "first_name": "",
+        "last_name": "",
+        "username": "",
+        "email": ""
+    },
+    "address": "",
+    "phone": ""
+};  //modify 
   fullname: string;
   // new 
 
@@ -54,12 +76,12 @@ export class ProductDetailsComponent implements OnInit , OnDestroy {
       response => {
         this.current_user = response;
         this.fullname = this.current_user['user']['first_name'] + " " + this.current_user['user']['last_name']
-        console.log(this.current_user)   // new
+        // console.log(this.current_user)   // new modify comment
       }
     )
 
     this.unsubscribeProduct = this.route.params.subscribe(data => { this.productId = parseInt(data['id'], 10); 
-        console.log(data['id'])
+        // console.log(data['id'])    // modify comment
       });
     this.unsubscribeCategory = this.backendApi.getAllCategory().subscribe((data:[])=>{
         this.categoryList = data ;
@@ -77,22 +99,22 @@ export class ProductDetailsComponent implements OnInit , OnDestroy {
       .subscribe(
         data => {
           this.productInterface = data;
-          console.log(data);
-          console.log(this.productInterface.photo);
+          // console.log(data);  // modify comment
+          // console.log(this.productInterface.photo); //modify comment
           this.coverView= this.productInterface.photo ;
           this.coverImg= this.productInterface.photo ;
           this.getOneCategory(this.productInterface.category)
           this.getOneSupplier(this.productInterface.supplier)
         },
         error => {
-          console.log(this.productInterface);
+          // console.log(this.productInterface);  //modify comment
           console.log(error);
         });
     this.backendApi.findByProductImgs(id)
       .subscribe(
         data => {
           this.imgList = data;
-          console.log(data);
+          // console.log(data); //modify comment
           // console.log(data[0].photos)
           // console.log(this.imgList[0].id)
         },
@@ -100,22 +122,22 @@ export class ProductDetailsComponent implements OnInit , OnDestroy {
           console.log(error);
         });
     // this.imgList = [{m:'m'}]
-    console.log(this.imgList)
+    // console.log(this.imgList)  //modify comment
   }
 
   deleteProduct() {
-    if(confirm("Are you sure to delete this Product ")) {
+    if(confirm("Are you sure to delete this Product ? ")) {
       this.backendApi.deleteProduct(this.productInterface.id)
       .subscribe(
         response => {
-          console.log(this.productInterface.id);
-          console.log(this.productInterface);
-          console.log(response);
+          // console.log(this.productInterface.id); //modify comment
+          // console.log(this.productInterface);    //modify comment
+          // console.log(response);                //modify comment
           alert("The Product was deleted successfully!")
           this.router.navigate(['/products']);
         },
         error => {
-          console.log(this.productInterface.id);
+          // console.log(this.productInterface.id);   //modify comment
           console.log(error);
         });
       
@@ -128,7 +150,7 @@ export class ProductDetailsComponent implements OnInit , OnDestroy {
     // new
     let reader = new FileReader();
     reader.onload = (event:any) => {
-      console.log(event.target.result);
+      // console.log(event.target.result); //modify comment
       this.coverView=event.target.result; 
     }
     reader.readAsDataURL(event.target.files[0]);
@@ -155,7 +177,7 @@ export class ProductDetailsComponent implements OnInit , OnDestroy {
     this.backendApi.updateProduct(this.productInterface.id, fd)
       .subscribe(
         response => {
-          console.log(response);
+          // console.log(response);    //modify comment
           this.newProductImgs() ;
           this.submittedProduct = false ;
           alert('The Product was updated successfully!')
@@ -192,12 +214,12 @@ refreshPage(){
       .subscribe(
         data => {
           this.categoryInterface = data;
-          console.log(data);
-          console.log(this.categoryInterface.name);
+          // console.log(data);     //modify comment
+          // console.log(this.categoryInterface.name);    //modify comment
 
         },
         error => {
-          console.log(this.categoryInterface);
+          // console.log(this.categoryInterface);    //modify comment
           console.log(error);
         });
   }
@@ -207,12 +229,12 @@ refreshPage(){
         data => {
           this.supplierInterface = data;
           this.supplierName = this.supplierInterface['user']['first_name'] + " " + this.supplierInterface['user']['last_name']
-          console.log(data);
-          console.log(this.supplierName);
+          // console.log(data);        //modify comment
+          // console.log(this.supplierName);       //modify comment
 
         },
         error => {
-          console.log(this.supplierInterface);
+          // console.log(this.supplierInterface);   //modify comment
           console.log(error);
         });
   }
@@ -229,7 +251,7 @@ refreshPage(){
           let reader = new FileReader();
  
           reader.onload = (event:any) => {
-            console.log(event.target.result);
+            // console.log(event.target.result);       //modify comment
              this.imgListView.push(event.target.result); 
           }
           reader.readAsDataURL(event.target.files[i]);
@@ -244,15 +266,17 @@ refreshPage(){
     for (let i = 0; i < this.images.length; i++) {
       productImgsForm.append('product', this.productId)
       productImgsForm.append('photos',this.images[i])
-      console.log(productImgsForm);
+      // console.log(productImgsForm);        //modify comment
       this.backendApi.createProductImg(productImgsForm)
         .subscribe(res => {
-          console.log(res);
-          console.log('Uploaded Successfully.');
+          // console.log(res);  //modify comment
+          // console.log('Uploaded Successfully.');  //modify comment
           productImgsForm.delete('product')
           productImgsForm.delete('photos')
           if(i === 0){
-            this.deleteProductImgs() ; console.log("true delete old"); this.refreshPage();
+            this.deleteProductImgs() ; 
+            // console.log("true delete old"); //modify comment
+            this.refreshPage();
           }
         },
         error => {
@@ -271,8 +295,8 @@ refreshPage(){
           response => {
             // console.log(this.productInterface.id);
             // console.log(this.productInterface);
-            console.log(response);
-            console.log("The Product Img was deleted successfully!")
+            // console.log(response);                   //modify comment
+            // console.log("The Product Img was deleted successfully!")   //modify comment
             // this.router.navigate(['/products']);
           },
           error => {
