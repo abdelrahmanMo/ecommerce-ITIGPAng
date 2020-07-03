@@ -1,5 +1,4 @@
 
-
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
         <h2>E-commerce product detail</h2>
@@ -53,6 +52,7 @@
 
                             <h2 class="font-bold m-b-xs">
                                 {{productInterface.name}}
+                                
                             </h2>
                             <small><i class="fa fa-user"></i>  {{supplierName}}</small>
                             <hr>
@@ -109,6 +109,8 @@
 
 
 </div>
+
+
 
 
 
@@ -244,22 +246,18 @@
         <div class="col-sm-10"> <textarea class="form-control" rows="3" [(ngModel)]="productInterface.desc" placeholder="Enter Product description here..." >
             </textarea></div>
     </div>
-
     <div class="form-group">
         <label class="col-sm-2 control-label">Quantity:</label>
         <div class="col-sm-10"><input name="quantity" class="form-control" [(ngModel)]="productInterface.quantity" type="number" placeholder="Enter Product Quantity"></div>
     </div>
-
     <div class="form-group">
         <label class="col-sm-2 control-label">Price:</label>
         <div class="col-sm-10"><input name="quantity" class="form-control" [(ngModel)]="productInterface.price" type="number" placeholder="Enter Product Price"></div>
     </div>
-
     <div class="form-group">
         <label class="col-sm-2 control-label">Cover Photo :</label>
         <div class="col-sm-10"><input name="photo" type="file"  (change)="onImgChanged($event)" required></div>
     </div>
-
     <div class="form-group">
         <label for="file" class="col-sm-2 control-label" >Details Photos :</label>
         <div class="col-sm-10">
@@ -273,13 +271,10 @@
     </div>
     
     
-
-
     <div class="form-group">
         <label class="col-sm-2 control-label">In-Stock:</label>
         <div class="col-sm-10"><input type="checkbox" name="in_stock" [(ngModel)]="productInterface.in_stock" ></div>
     </div>
-
     
     <div class="form-group">
         <label class="col-sm-2 control-label">Supplier:</label>
@@ -289,7 +284,6 @@
             </select>
         </div>
     </div>
-
     <div class="form-group">
         <label class="col-sm-2 control-label">Category:</label>
         <div class="col-sm-10">
@@ -298,121 +292,9 @@
             </select>
         </div>
     </div>
-
     <button (click)="saveProduct()" class="btn btn-outline-secondary">Create</button>
-
 </fieldset> -->
 
-
-<div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-lg-10">
-        <h2>E-commerce product detail</h2>
-        <ol class="breadcrumb">
-            <li>
-                <a href="index.html">Home</a>
-            </li>
-            <li>
-                <a>E-commerce</a>
-            </li>
-            <li class="active">
-                <strong>Product detail</strong>
-            </li>
-        </ol>
-    </div>
-    <div class="col-lg-2">
-
-    </div>
-</div>
-
-<div class="wrapper wrapper-content animated fadeInRight">
-    <div class="row">
-        <div class="col-lg-12">
-
-            <div class="ibox product-detail">
-                <div class="ibox-content">
-
-                    <div class="row">
-                        <div class="col-md-5">
-
-
-                            <div class="product-images">
-                                <img src="{{productInterface.photo}}" width="400" height="300" >                 
-                                <img  *ngFor="let item of imgList" src="{{item.photos}}" width="400" height="300" > 
-                                
-                                    <!-- <div class="image-imitation">
-                                        [IMAGE 2]
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="image-imitation">
-                                        [IMAGE 3]
-                                    </div>
-                                </div> -->
-                            
-
-                            </div>
-
-                        </div>
-                        <div class="col-md-7">
-
-                            <h2 class="font-bold m-b-xs">
-                                {{productInterface.name}}
-                            </h2>
-                            <small>Supplier : {{productInterface.supplier}}</small>
-                            <hr>
-                            <div>
-                                <button class="btn btn-primary pull-right">Add to cart</button>
-                                <h1 class="product-main-price">${{productInterface.price}} <small class="text-muted">Exclude Tax</small> </h1>
-                            </div>
-                            <hr>
-                            <h4>Product description</h4>
-
-                            <div class="small text-muted">
-                                {{productInterface.desc}}
-                            </div>
-                            <dl class="dl-horizontal m-t-md small">
-                                <dt>Category</dt>
-                                <dd>{{productInterface.category}}</dd>
-                                <dt>Quantity</dt>
-                                <dd>{{productInterface.quantity}}</dd>
-                                <dt>Stock Availability</dt>
-                                <dd>{{productInterface.in_stock}}</dd>
-                                <dt>Created Date</dt>
-                                <dd>{{productInterface.created_date  | date:'medium'}}</dd>
-                               </dl>
-                            <div class="text-right">
-                                <div class="btn-group">
-                                    <button class="btn btn-white btn-sm"><i class="fa fa-star"></i> Add to wishlist </button>
-                                    <button class="btn btn-white btn-sm"><i class="fa fa-envelope"></i> Contact with {{productInterface.supplier}} </button>
-                                </div>
-                            </div>
-
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="ibox-footer">
-                    <span class="pull-right">
-                        Full stock - <i class="fa fa-clock-o"></i> {{productInterface.created_date  | date:'medium'}}
-                    </span>
-                    <div *ngIf="!submittedProduct">
-                        <button class="btn btn-outline-secondary" (click)="editProduct()">
-                            Edit Product
-                        </button>
-                        <p>{{ message }}</p>
-                    </div>
-                    
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-
-
-
-</div>
 
 
 
@@ -495,3 +377,39 @@
 
 </div>
 
+<ng-container *ngTemplateOutlet="template;context:{quantity:'2'}"></ng-container>
+
+
+<ng-template #template let-quantityq="quantity" >
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Modal {{quantityq}}</h4>
+        <button type="button" 
+        class="close pull-right" 
+        arial-label="Close"
+        (click)="modalRef.hide()" >
+        <span aria-hidden="true" > &times;</span>
+    
+        </button>
+    </div>
+    <div class="modal-body">
+        <form>
+           
+            <div class="form-group">
+                <label class=" control-label">Quantity: </label>
+                <input name="quantity" min="1" max="{{productInterface.quantity}}" class="form-control"  type="number" placeholder="Enter Product Quantity you want">
+            </div>
+          </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-danger pull-right" (click)="modalRef.hide()" >close</button>
+    </div>
+    </ng-template>
+    
+    <button type="button" class="btn btn-primary" (click)="openModal(template)">modal</button>
+
+   
+    
+<button type="button" class="btn btn-primary" (click)="showToaster()">
+    Show Toaster
+</button>

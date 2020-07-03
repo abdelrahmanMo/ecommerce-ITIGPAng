@@ -1,5 +1,6 @@
-import { BrowserModule } from '@angular/platform-browser';
+
 import { NgModule } from '@angular/core';
+import { NgbModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,6 +25,12 @@ import {HttpClientModule} from '@angular/common/http';
 import { ProfileComponent } from './profile/profile.component'
 import { CartService } from './services/backend-api/cart.service';
 import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
+import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
+import { ModalModule} from 'ngx-bootstrap/modal'
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AlertModule } from 'ngx-bootstrap/alert';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,12 +54,24 @@ import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
     
   ],
   imports: [
+   
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    NgbModule, 
+    CommonModule,
+    BrowserAnimationsModule,
+    NgbModalModule,
+    ModalModule.forRoot(),
+    AlertModule.forRoot(),
+    ToastrModule.forRoot({
+      timeOut: 10000,
+      preventDuplicates: true,
+   
+    }),
      ConfirmationPopoverModule.forRoot({
       confirmButtonType: 'danger', // set defaults here
     }),

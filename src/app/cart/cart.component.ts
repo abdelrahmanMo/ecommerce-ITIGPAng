@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { BsModalRef,BsModalService } from 'ngx-bootstrap/modal'
+import { ToastrService } from 'ngx-toastr';
+import { NotificationToastService } from '../shared/notification-toast.service';
 
 @Component({
   selector: 'app-cart',
@@ -7,9 +10,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CartComponent implements OnInit {
 
-  constructor() { }
+  constructor(private notification:NotificationToastService) { }
 
   ngOnInit(): void {
   }
-
+  showToaster(){
+    this.notification.showInfo('well don','success')
+  }
 }

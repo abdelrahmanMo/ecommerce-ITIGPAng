@@ -1,8 +1,12 @@
-import { Component, OnInit , OnDestroy } from '@angular/core';
+import { Component, OnInit , OnDestroy, TemplateRef } from '@angular/core';
 import { BackendApiService } from '../../services/backend-api/backend-api.service' ;
 import { ProfileService } from '../../profile/profile.service' ;  // new
 import { Subscription , BehaviorSubject } from 'rxjs';
 import { ActivatedRoute, Router } from "@angular/router";
+
+import { BsModalRef,BsModalService } from 'ngx-bootstrap/modal';
+import { NotificationToastService } from 'src/app/shared/notification-toast.service';
+
 
 @Component({
   selector: 'app-product-details',
@@ -36,11 +40,11 @@ export class ProductDetailsComponent implements OnInit , OnDestroy {
   imgListView : any = [];
   coverView :any ;
   coverImg : any ;
-
+  closeResult = '';
   // productId : any;
-
+  modalRef:BsModalRef; 
   constructor(public backendApi : BackendApiService ,private profileService: ProfileService, private  route: ActivatedRoute,
-    private  router: Router) { }
+    private  router: Router,private modalService:BsModalService,private notitfication:NotificationToastService) { }
 
   ngOnInit(): void {
     if(!localStorage.getItem('id')){
@@ -100,7 +104,8 @@ export class ProductDetailsComponent implements OnInit , OnDestroy {
   }
 
   deleteProduct() {
-    this.backendApi.deleteProduct(this.productInterface.id)
+    if(confirm("Are you sure to delete this Product ")) {
+      this.backendApi.deleteProduct(this.productInterface.id)
       .subscribe(
         response => {
           console.log(this.productInterface.id);
@@ -113,6 +118,9 @@ export class ProductDetailsComponent implements OnInit , OnDestroy {
           console.log(this.productInterface.id);
           console.log(error);
         });
+      
+    }
+    
   }
 
   onImgChanged(event : any ){
@@ -273,4 +281,14 @@ refreshPage(){
           });
     }
   }
+
+ 
+  openModal(template:TemplateRef<any>){
+    console.log(template);
+    this.modalRef = this.modalService.show(template);
+  }
+
+showToaster(){
+  this.notitfication.showInfo('well done','success')
+}
 }
