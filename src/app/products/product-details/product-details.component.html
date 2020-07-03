@@ -116,9 +116,13 @@
 
 
 
+<<<<<<< HEAD
 
 
 <div *ngIf="submittedProduct">
+=======
+<div *ngIf="submittedProduct" class="col-lg-10" >
+>>>>>>> 8bfe18e901b4f9375a5745eac0ceea9493cd5653
     <fieldset class="form-horizontal">
 
 
@@ -165,6 +169,10 @@
                 <img  *ngFor="let item of imgList" src="{{item.photos}}" height="150" width="200px" style="margin: 3px;"> <br/>
 
             </div>
+            
+        </div>
+
+        <div class="form-group">
             <label for="file" class="col-sm-2 control-label" >Details New Photos :</label>
             <div class="col-sm-10">
             <img *ngFor='let url of imgListView'  [src]="url" height="150" width="200px" style="margin: 3px;"> <br/>
@@ -210,19 +218,20 @@
             </select>
         </div> 
         </div>
-
+        <br>    <br>  
         <div class="form-group">
-            <button class="btn btn-outline-secondary" (click)="deleteProduct()">
+            <button class="btn btn-primary pull-left" (click)="deleteProduct()">
             Delete
             </button>
 
-            <button type="submit" class="btn btn-outline-secondary" (click)="updateProduct()">
+            <button type="submit" class="btn btn-primary pull-right" (click)="updateProduct()">
             Update
             </button>
 
-            <button type="submit" class="btn btn-outline-secondary" (click)="refreshPage()">
-                Reset
+            <button type="submit" class="btn btn-outline-secondary pull-right" (click)="refreshPage()">
+                Reset Edit
             </button>
+<<<<<<< HEAD
         </div>
     </fieldset> 
     <br>    <br>   
@@ -320,55 +329,12 @@
         <textarea rows="4" cols="50" [(ngModel)]="productInterface.desc" class="form-control col-md-6" >
             Enter Category description here...</textarea>
         </div>
+=======
+
+>>>>>>> 8bfe18e901b4f9375a5745eac0ceea9493cd5653
             
-        <div class="form-group">
-        <label>Quantity</label>
-            <input name="quantity" class="form-control" [(ngModel)]="productInterface.quantity" type="number" value="">
         </div>
-
-        <div class="form-group">
-        <label>Photo</label>
-            <input name="photo" type="file"  (change)="onImgChanged($event)" required>
-        </div>
-
-        <div class="form-group">
-        <label>Price (EGP)</label>
-            <input name="price" class="form-control" type="number" [(ngModel)]="productInterface.price" value="">
-        </div>
-
-        <!-- <div class="form-group">
-        <label>Created Date</label>
-            <input name="created_date" class="form-control" type="text" [(ngModel)]="imgList[0].id" value="">
-        </div>  -->
-
-        <div class="form-group">
-        <label>In Stock</label>
-            <input type="checkbox" name="in_stock" [(ngModel)]="productInterface.in_stock" value="true">
-        </div>
-
-        <div class="form-group">
-        <label>Supplier</label>
-            <select class="form-control" name="supplier"  >
-                <option >ahmed</option>
-            </select>
-        </div>  
-
-        <div class="form-group">
-        <label>Category</label>
-            <select class="form-control" name="category" [(ngModel)]="productInterface.category" >
-                <option *ngFor="let item of categoryList" [ngValue]="item['id']"> {{item['name']}}</option>
-            </select>
-        </div>  
-        <div class="form-group">
-            <button class="btn btn-outline-secondary" (click)="deleteProduct()">
-            Delete
-            </button>
-
-            <button type="submit" class="btn btn-outline-secondary" (click)="updateProduct()">
-            Update
-            </button>
-        </div>
-        
+    </fieldset> 
     <br>    <br>   
 
 
@@ -377,6 +343,7 @@
 
 </div>
 
+<<<<<<< HEAD
 <ng-container *ngTemplateOutlet="template;context:{quantity:'2'}"></ng-container>
 
 
@@ -413,3 +380,6 @@
 <button type="button" class="btn btn-primary" (click)="showToaster()">
     Show Toaster
 </button>
+=======
+
+>>>>>>> 8bfe18e901b4f9375a5745eac0ceea9493cd5653
