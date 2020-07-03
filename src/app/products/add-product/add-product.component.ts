@@ -40,7 +40,7 @@ export class AddProductComponent implements OnInit ,OnDestroy {
    // new imgs
    images  : any = [];
    imgList : any = [];
-   coverView : any = null; 
+   coverView : any = false; 
 
    productId : any;
   //  productImgsForm = new FormGroup  ;
@@ -150,7 +150,7 @@ ngOnDestroy(): void {
         category : null
       };
       this.imgList = [] ;
-      this.coverView =null ;
+      this.coverView =false ;
     } 
 
     // End Creating Product 
