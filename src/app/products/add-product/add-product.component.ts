@@ -60,14 +60,14 @@ export class AddProductComponent implements OnInit ,OnDestroy {
       response => {
         this.current_user = response;
         this.fullname = this.current_user['user']['first_name'] + " " + this.current_user['user']['last_name']
-        console.log(this.current_user)   // new
+        // console.log(this.current_user)   // new //modify comment
       }
     )
     // list categories
     this.unsubscribeCategory = this.backendApi.getAllCategory().subscribe((data:[])=>{
       this.categoryList = data ;
-      console.log(data)
-      console.log(this.categoryList)
+      // console.log(data)       //modify comment
+      // console.log(this.categoryList)  //modify comment
       })
     
 }
@@ -82,7 +82,7 @@ ngOnDestroy(): void {
       // new
       let reader = new FileReader();
       reader.onload = (event:any) => {
-        console.log(event.target.result);
+        // console.log(event.target.result);   //modify comment
         this.coverView=event.target.result; 
       }
       reader.readAsDataURL(event.target.files[0]);
@@ -121,7 +121,7 @@ ngOnDestroy(): void {
       this.backendApi.createProduct(fd)
         .subscribe(
           response => {
-            console.log(JSON.parse(JSON.stringify(response)).id);
+            // console.log(JSON.parse(JSON.stringify(response)).id);    //modify comment
             this.productId = JSON.parse(JSON.stringify(response)).id ;
             this.newProductImgs() ;
             this.submittedProduct = true;
@@ -165,7 +165,7 @@ ngOnDestroy(): void {
             var reader = new FileReader();
    
             reader.onload = (event:any) => {
-              console.log(event.target.result);
+              // console.log(event.target.result);   //modify comment
                this.imgList.push(event.target.result); 
             }
             reader.readAsDataURL(event.target.files[i]);
@@ -179,11 +179,11 @@ ngOnDestroy(): void {
       for (let i = 0; i < this.images.length; i++) {
         productImgsForm.append('product', this.productId)
         productImgsForm.append('photos',this.images[i])
-        console.log(productImgsForm);
+        // console.log(productImgsForm);      //modify comment
         this.backendApi.createProductImg(productImgsForm)
           .subscribe(res => {
-            console.log(res);
-            console.log('Uploaded Successfully.');
+            // console.log(res);  //modify comment
+            // console.log('Uploaded Successfully.');   //modify comment
             productImgsForm.delete('product')
             productImgsForm.delete('photos')
           },

@@ -32,14 +32,14 @@ ngOnInit(): void {
   // list products
   this.unsubscribeProduct = this.backendApi.getAllProduct().subscribe((data:[])=>{
     this.productList = data ;
-    console.log(data)
-    console.log(this.productList)
+    // console.log(data)             //modify comment
+    // console.log(this.productList)    //modify comment
   })
   // list categories
   this.unsubscribeCategory = this.backendApi.getAllCategory().subscribe((data:[])=>{
     this.categoryList = data ;
-    console.log(data)
-    console.log(this.categoryList)
+    // console.log(data)             //modify comment
+    // console.log(this.categoryList) //modify comment
   })
 }
 
@@ -53,8 +53,8 @@ refreshProductList() {
   .subscribe(
     data => {
       this.productList = data;
-      console.log(data);
-      console.log(this.productList);
+      // console.log(data);  //modify comment
+      // console.log(this.productList);     //modify comment
     },
     error => {
       console.log(error);
@@ -67,7 +67,7 @@ searchProduct() {
   .subscribe(
     data => {
       this.productList = data;
-      console.log(data);
+      // console.log(data);        //modify comment
     },
     error => {
       console.log(error);
@@ -76,19 +76,19 @@ searchProduct() {
 } 
 
 setActiveCategory(cateId) {
-  console.log(this.currentStock)
+  // console.log(this.currentStock)    //modify comment
   if(cateId !== "null"){
-    console.log("true")
-    console.log(cateId)
+    // console.log("true")       //modify comment
+    // console.log(cateId)        //modify comment
     this.cateId = +cateId;
     // this.getOneCategory(id);      
   }
   else{
-    console.log("false")
+    // console.log("false")          //modify comment
     this.cateId = null ;
   }
-  console.log(cateId)
-  console.log(this.cateId)
+  // console.log(cateId)             //modify comment
+  // console.log(this.cateId)        //modify comment
   
   if(this.cateId === null){
     this.productSearchName = '';
@@ -104,9 +104,9 @@ setActiveCategory(cateId) {
     .subscribe(
       data => {
         this.productList = data;
-        console.log(data);
-        console.log(this.cateId)
-        console.log(this.currentStock)
+        // console.log(data);         //modify comment
+        // console.log(this.cateId)    //modify comment
+        // console.log(this.currentStock)  //modify comment
 
       },
       error => {
