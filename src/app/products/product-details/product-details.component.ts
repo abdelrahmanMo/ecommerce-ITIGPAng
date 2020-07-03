@@ -122,7 +122,7 @@ export class ProductDetailsComponent implements OnInit , OnDestroy {
   }
 
   deleteProduct() {
-    if(confirm("Are you sure to delete this Product ")) {
+    if(confirm("Are you sure to delete this Product ? ")) {
       this.backendApi.deleteProduct(this.productInterface.id)
       .subscribe(
         response => {
@@ -270,7 +270,9 @@ refreshPage(){
           productImgsForm.delete('product')
           productImgsForm.delete('photos')
           if(i === 0){
-            this.deleteProductImgs() ; console.log("true delete old"); this.refreshPage();
+            this.deleteProductImgs() ; 
+            // console.log("true delete old"); //modify comment
+            this.refreshPage();
           }
         },
         error => {
