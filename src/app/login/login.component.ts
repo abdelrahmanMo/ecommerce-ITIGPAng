@@ -43,6 +43,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem("token", this.loginService.userToken['token']);
         localStorage.setItem("id", this.loginService.userToken['id']);
         this.router.navigate(["/products"]);
+        
       },
       error => {
         this.dataValid = true;
@@ -53,5 +54,7 @@ export class LoginComponent implements OnInit {
   getUserData(){
     this.loginService.getUserData();
   }
+
+
 
 }

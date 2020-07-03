@@ -100,7 +100,8 @@ export class ProductDetailsComponent implements OnInit , OnDestroy {
   }
 
   deleteProduct() {
-    this.backendApi.deleteProduct(this.productInterface.id)
+    if(confirm("Are you sure to delete this Product ")) {
+      this.backendApi.deleteProduct(this.productInterface.id)
       .subscribe(
         response => {
           console.log(this.productInterface.id);
@@ -113,6 +114,9 @@ export class ProductDetailsComponent implements OnInit , OnDestroy {
           console.log(this.productInterface.id);
           console.log(error);
         });
+      
+    }
+    
   }
 
   onImgChanged(event : any ){
