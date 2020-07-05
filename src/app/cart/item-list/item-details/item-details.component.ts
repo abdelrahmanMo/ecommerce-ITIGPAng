@@ -29,8 +29,39 @@ export class ItemDetailsComponent implements OnInit {
   }
   removeConfirem(){
     console.log(this.itemDetail.id);  
-    this.cartservice.removeCartItem(this.itemDetail.id).subscribe();
-    this.refreshPage();
+    this.cartservice.removeCartItem(this.itemDetail.id).subscribe(
+      remove=>{
+        this.product.getOneProduct(this.itemDetail.product).subscribe(
+          product =>{
+            console.log(product);
+        const newQuantity = (+product['quantity']) + (this.itemDetail.quantatiy);
+        console.log("helllp")
+        console.log(newQuantity)
+        console.log("newQuantity")
+        console.log(+product['quantity']);
+        const newStock = +product['quantity'] == 0? false : true;
+        const newProduct = {
+        name: product['name'],
+        quantity: newQuantity,
+        price: product['price'],
+        in_stock: newStock,
+        supplier: product['supplier'],
+        category: product['category'],
+        desc: product['desc'],
+        created_date: product['created_date'],
+      };
+    this.product.updateProduct(this.itemDetail.product,newProduct).subscribe(
+      update => {
+        console.log(update);
+        this.refreshPage();
+      }
+    )      
+    
+    }
+        )
+      }
+    );
+    
 
 }
 refreshPage(){

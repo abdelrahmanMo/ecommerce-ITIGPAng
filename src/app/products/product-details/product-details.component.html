@@ -29,10 +29,23 @@
                     <div class="row">
                         <div class="col-md-5">
 
+
                             <div class="product-images">
-                                <img src="{{coverImg}}" width="100%" height="300" >                 
-                                <img  *ngFor="let item of imgList" src="{{item.photos}}" width="100%" height="300" > 
-                            </div>    
+                                <img src="{{coverImg}}" width="400" height="300" >                 
+                                <img  *ngFor="let item of imgList" src="{{item.photos}}" width="400" height="300" > 
+                                
+                                    <!-- <div class="image-imitation">
+                                        [IMAGE 2]
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="image-imitation">
+                                        [IMAGE 3]
+                                    </div>
+                                </div> -->
+                            
+
+                            </div>
 
                         </div>
                         <div class="col-md-7">
@@ -44,7 +57,7 @@
                             <small><i class="fa fa-user"></i>  {{supplierName}}</small>
                             <hr>
                             <div>
-                                <button class="btn btn-primary pull-right">Add to cart</button>
+                                <button class="btn btn-primary pull-right" (click)="openModal(template)">Add to cart</button>
                                 <h1 class="product-main-price">${{productInterface.price}} <small class="text-muted">Exclude Tax</small> </h1>
                             </div>
                             <hr>
@@ -80,6 +93,7 @@
                         Full stock - <i class="fa fa-clock-o"></i> {{productInterface.created_date  | date:'medium'}}
                     </span>
                     <div *ngIf="!submittedProduct && current_user.id === productInterface.supplier">
+                   
                         <button class="btn btn-outline-secondary" (click)="editProduct()">
                             Edit Product
                         </button>
@@ -100,16 +114,7 @@
 
 
 
-
-
-
-<<<<<<< HEAD
-
-
-<div *ngIf="submittedProduct">
-=======
 <div *ngIf="submittedProduct" class="col-lg-10" >
->>>>>>> 8bfe18e901b4f9375a5745eac0ceea9493cd5653
     <fieldset class="form-horizontal">
 
 
@@ -218,7 +223,6 @@
             <button type="submit" class="btn btn-outline-secondary pull-right" (click)="refreshPage()">
                 Reset Edit
             </button>
-<<<<<<< HEAD
         </div>
     </fieldset> 
     <br>    <br>   
@@ -316,57 +320,38 @@
         <textarea rows="4" cols="50" [(ngModel)]="productInterface.desc" class="form-control col-md-6" >
             Enter Category description here...</textarea>
         </div>
-=======
 
->>>>>>> 8bfe18e901b4f9375a5745eac0ceea9493cd5653
             
         </div>
-    </fieldset> 
-    <br>    <br>   
 
 
 
 
-
-</div>
-
-<<<<<<< HEAD
-<ng-container *ngTemplateOutlet="template;context:{quantity:'2'}"></ng-container>
-
-
-<ng-template #template let-quantityq="quantity" >
-    <div class="modal-header">
-        <h4 class="modal-title pull-left">Modal {{quantityq}}</h4>
-        <button type="button" 
-        class="close pull-right" 
-        arial-label="Close"
-        (click)="modalRef.hide()" >
-        <span aria-hidden="true" > &times;</span>
-    
-        </button>
-    </div>
-    <div class="modal-body">
-        <form>
-           
-            <div class="form-group">
-                <label class=" control-label">Quantity: </label>
-                <input name="quantity" min="1" max="{{productInterface.quantity}}" class="form-control"  type="number" placeholder="Enter Product Quantity you want">
+        <ng-template #template >
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Modal </h4>
+                <button type="button" 
+                class="close pull-right" 
+                arial-label="Close"
+                (click)="modalRef.hide()" >
+                <span aria-hidden="true" > &times;</span>
+            
+                </button>
             </div>
-          </form>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-danger pull-right" (click)="modalRef.hide()" >close</button>
-    </div>
-    </ng-template>
-    
-    <button type="button" class="btn btn-primary" (click)="openModal(template)">modal</button>
+            <div class="modal-body">
+                <form>
+                   
+                    <div class="form-group">
+                        <label class=" control-label">Quantity: </label>
+                        <input name="quantity" min="1" #quantity class="form-control"  type="number" placeholder="Enter Product Quantity you want">
+                    </div>
+                  </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" (click)="confirmAddToCart(quantity)" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-danger pull-right" (click)="modalRef.hide()" >close</button>
+            </div>
+            </ng-template>
 
-   
-    
-<button type="button" class="btn btn-primary" (click)="showToaster()">
-    Show Toaster
-</button>
-=======
+         
 
->>>>>>> 8bfe18e901b4f9375a5745eac0ceea9493cd5653

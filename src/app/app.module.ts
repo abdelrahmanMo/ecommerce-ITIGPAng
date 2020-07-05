@@ -31,6 +31,7 @@ import { ModalModule} from 'ngx-bootstrap/modal'
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AlertModule } from 'ngx-bootstrap/alert';
+import { NotificationToastService } from './shared/notification-toast.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -77,7 +78,8 @@ import { AlertModule } from 'ngx-bootstrap/alert';
     }),
 
   ],
-  providers: [CartService],
+  providers: [CartService,
+              NotificationToastService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
