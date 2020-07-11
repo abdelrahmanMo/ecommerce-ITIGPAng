@@ -88,7 +88,7 @@
                         <span class="product-price">
                             ${{ item['price'] }}
                         </span>
-                        <a href="#" class="product-name">{{ item['name'] }}</a>
+                        <a routerLink="/product/{{ item['id'] }}" class="product-name">{{ item['name'] }}</a>
                         <i class="fa fa-times-circle" *ngIf="!item['in_stock']"><small class="text-muted"> Out-Stock</small></i><i class="fa fa-check-circle" *ngIf="item['in_stock']"><small class="text-muted"> In-Stock</small></i>
 
 
